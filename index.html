@@ -309,6 +309,87 @@
 
     #thanks strong { color: #44cc44; font-size: 16px; }
 
+    /* ===== フライヤー ===== */
+    .flyer-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .flyer-item {
+      position: relative;
+      cursor: pointer;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: border-color .2s, transform .15s;
+    }
+
+    .flyer-item:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .flyer-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .flyer-item::after {
+      content: '拡大';
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: #fff;
+      background: rgba(204,0,0,.75);
+      padding: 3px 8px;
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .flyer-item:hover::after { opacity: 1; }
+
+    /* ライトボックス */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.92);
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #lightbox.open { display: flex; }
+
+    #lightbox img {
+      max-width: min(680px, 100%);
+      max-height: 90svh;
+      object-fit: contain;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      box-shadow: 0 0 60px rgba(204,0,0,.25);
+    }
+
+    #lightbox-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--muted);
+      cursor: pointer;
+      line-height: 1;
+      transition: color .15s;
+    }
+
+    #lightbox-close:hover { color: var(--accent-bright); }
+
     /* ===== フッター ===== */
     footer {
       text-align: center;
@@ -375,6 +456,16 @@
         </div>
       </div>
       -->
+    </section>
+
+    <!-- FLYER -->
+    <section class="section" style="animation-delay:.15s">
+      <p class="section-title">告 — Flyer</p>
+      <div class="flyer-grid">
+        <div class="flyer-item" onclick="openLightbox('./flyer_0419.JPG')">
+          <img src="./flyer_0419.JPG" alt="4/19（土）西荻窪 flat フライヤー">
+        </div>
+      </div>
     </section>
 
     <!-- MUSIC / LINKS -->
@@ -465,11 +556,36 @@
       </form>
     </section>
 
+    <!-- LIGHTBOX -->
+    <div id="lightbox" onclick="closeLightbox()">
+      <span id="lightbox-close" onclick="closeLightbox()">✕</span>
+      <img id="lightbox-img" src="" alt="">
+    </div>
+
     <footer>
       <p>© THE309 / 参零九 — Yokohama, Japan</p>
     </footer>
 
   </div>
+
+  <script>
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+    // 画像クリックでは閉じない（背景クリックのみ閉じる）
+    document.getElementById('lightbox').querySelector('img').addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+  </script>
 
   <script>
     // =====================================================
