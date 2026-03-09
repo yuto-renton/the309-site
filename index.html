@@ -317,6 +317,24 @@
 
     #thanks strong { color: #44cc44; font-size: 16px; }
 
+    /* ===== YouTube埋め込み ===== */
+    .yt-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      margin-bottom: 12px;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .yt-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
     /* ===== フライヤー ===== */
     .flyer-grid {
       display: grid;
@@ -479,6 +497,10 @@
     <!-- MUSIC / LINKS -->
     <section class="section" style="animation-delay:.2s">
       <p class="section-title">音 — Music & Links</p>
+      <div class="yt-wrap">
+        <iframe src="https://www.youtube.com/embed/xTS5sURnqMY" title="参零九 (THE309)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+
       <div class="links">
 
         <a class="btn" href="https://youtu.be/xTS5sURnqMY?si=u4xR4Z13ypO0s0MG" target="_blank" rel="noopener">
